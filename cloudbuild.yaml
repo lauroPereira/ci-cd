@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/lauro-lab/pjt-ci-cd:latest', '-t', 'gcr.io/lauro-lab/pjt-ci-cd:$SHORT_SHA', '.']
+
+  - name: 'docker'
+    args: ['run', '-d', '--name', 'goapp', 'gcr.io/lauro-lab/pjt-ci-cd:latest']
+
+  - name: 'docker'
+    args: ['exec', 'goapp', 'go', 'test']
+
+  # - name: 'docker'
+  #  args: ['push', 'gcr.io/lauro-lab/pjt-ci-cd:latest']
+
+  # - name: 'docker'
+  #  args: ['push', 'gcr.io/lauro-lab/pjt-ci-cd:$SHORT_SHA']
